@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 
 function App() {
-  const URL = "http://quotes.stormconsultancy.co.uk/random.json"
+  const URL = "https://api.quotable.io/random"
   const [quote, setQuote] = useState([])
   const [author, setAuthor] = useState([])
   
@@ -12,7 +12,7 @@ function App() {
   function getRandomQuote() {
     return fetch(URL)
       .then(response => response.json())
-      .then(data => [data.quote, data.author])
+      .then(data => [data.content, data.author])
   }
 
   async function getNextQuote() {
