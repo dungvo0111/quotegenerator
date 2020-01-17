@@ -4,10 +4,9 @@ import './App.css';
 
 function App() {
   const URL = "https://api.quotable.io/random"
-  const [quote, setQuote] = useState([])
-  const [author, setAuthor] = useState([])
+  const [quote, setQuote] = useState([{content:'', author:''}])
   
-  useEffect(() => {getNextQuote()}, [])
+  useEffect(() => getNextQuote(), [])
   
   function getRandomQuote() {
     return fetch(URL)
@@ -17,21 +16,17 @@ function App() {
 
   async function getNextQuote() {
     const [ q, a ] = await getRandomQuote()
-    setQuote(q)
-    setAuthor(a)
+    setQuote({content: q, author: a})
+    
   }
-
-
-
-  
 
   return (
     <div id="quote-box">
-      <div id="text">"{quote}"</div>
-      <div id="author">--{author}--</div>
-      <a class="twitter-share-button" href="twitter.com/intent/tweet" id="tweet-quote">
-        <i class="fa fa-twitter"></i></a>
-      <button id="new-quote" class="btn" onClick={getNextQuote}>New Quote</button>
+      <div id="text">"{quote.content}"</div>
+      <div id="author">--{quote.author}--</div>
+      <a className="twitter-share-button" href="https://twitter.com/intent/tweet" id="tweet-quote">
+        <i className="fa fa-twitter"></i></a>
+      <button id="new-quote" className="btn" onClick={getNextQuote}>New Quote</button>
     </div>
   );
 }
